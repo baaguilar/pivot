@@ -35,19 +35,16 @@
             return window.getSelection().toString();
         }
         
-        document.addEventListener("selectionchange", function() {
+        function selectedText(){
             var textSelection = getTextSelection();
             if (textSelection) {
                 window.prompt("Please edit the text selection: ", textSelection);
             } 
-
-        });
+        }
+        document.addEventListener("selectionchange", selectedText;
         
         $(document).on("touchend mouseup",function(){
-            var textSelection = getTextSelection();
-            if (textSelection) {
-                window.prompt("Please edit the text selection: ", textSelection);
-            }
+            selectedText();
         });
         
         
