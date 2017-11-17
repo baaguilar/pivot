@@ -29,24 +29,20 @@
 
   	<script type="text/javascript">
 
-    function getTextSelection (){
-        return window.getSelection().toString();
-    }
-    
-    document.onmouseup = function (){
-        var textSelection = getTextSelection();
-        if (textSelection) {
-            window.prompt("Please edit the text selection: ", textSelection);
-        }
-    } 
-    
-    
-
     $(function(){ 
 
-        $(document).on("touchend",function(){
-            alert('yes!');
+        function getTextSelection (){
+            return window.getSelection().toString();
+        }
+        
+        $(document).on("touchend mouseup",function(){
+            var textSelection = getTextSelection();
+            if (textSelection) {
+                window.prompt("Please edit the text selection: ", textSelection);
+            }
         });
+        
+        
         
         $("#pivottoday").on("click",function(){
             window.location.href = "pivottoday.html"; 
