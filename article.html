@@ -32,31 +32,33 @@
     function getTextSelection (){
         return window.getSelection().toString();
     }
-        
-    function selectText(){
+    
+    document.onmouseup = function (){
         var textSelection = getTextSelection();
         if (textSelection) {
             window.prompt("Please edit the text selection: ", textSelection);
         }
-    }
-    document.ontouchend = selectText();
-        
-    document.onmouseup = selectText();
+    } 
+    
+    
 
     $(function(){ 
 
+        $(document).on("touchend",function(){
+            alert('yes!');
+        });
+        
+        $("#pivottoday").on("click",function(){
+            window.location.href = "pivottoday.html"; 
+        });
 
-    $("#pivottoday").on("click",function(){
-        window.location.href = "pivottoday.html"; 
-    });
+        $("#profilepage").on("click",function(){
+            window.location.href = "profile.html"; 
+        });
 
-    $("#profilepage").on("click",function(){
-        window.location.href = "profile.html"; 
-    });
-
-    $("#homepage").on("click",function(){
-        window.location.href = "homepage.html"; 
-    });
+        $("#homepage").on("click",function(){
+            window.location.href = "homepage.html"; 
+        });
 
   	}); 
 	</script>
