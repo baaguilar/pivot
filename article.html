@@ -35,6 +35,14 @@
             return window.getSelection().toString();
         }
         
+        document.addEventListener("selectionchange", function() {
+            var textSelection = getTextSelection();
+            if (textSelection) {
+                window.prompt("Please edit the text selection: ", textSelection);
+            } 
+
+        });
+        
         $(document).on("touchend mouseup",function(){
             var textSelection = getTextSelection();
             if (textSelection) {
