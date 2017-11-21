@@ -30,24 +30,38 @@
   	<script type="text/javascript">
 
     $(function(){ 
+        var textSelection;
+        
+        $(document).on("mouseup", function (e) {
+            var selected = getSelection();
+            var range = selected.getRangeAt(0);
+            console.log(range);
 
-        function getTextSelection (){
-            return window.getSelection().toString();
-        }
-        
-        function selectedText(){
-            var textSelection = getTextSelection();
-            if (textSelection) {
-                window.prompt("Please edit the text selection: ", textSelection);
-            } 
-        }
-        document.addEventListener("selectionchange", selectedText;
-        
-        $(document).on("touchend mouseup",function(){
-            selectedText();
+            if(selected.toString().length > 1){
+                var newNode = document.createElement("mark");
+                range.surroundContents(newNode);  
+                $("#selection").text(selected);
+                $('#myModal').modal('show');
+            }
+
+            selected.removeAllRanges();
         });
-        
-        
+
+        function getSelection() {
+            var seltxt = '';
+
+            if (window.getSelection) { 
+                seltxt = window.getSelection(); 
+            } else if (document.getSelection) { 
+                seltxt = document.getSelection(); 
+            } else if (document.selection) { 
+                seltxt = document.selection.createRange().text; 
+            }
+
+            else return;
+            
+            return seltxt;
+        }
         
         $("#pivottoday").on("click",function(){
             window.location.href = "pivottoday.html"; 
@@ -174,6 +188,30 @@
   <p>Yeah. If I go to Alinea to eat—which I’ve only done once in the last two years, I don’t do it very often—I feel like I’m still working because I’m looking at other tables, I’m making sure everything’s good.</p> <p>I’m not relaxed and enjoying myself– the same thing at Next. You don’t want to look like that guy, and that guy is the guy who owns a bar or restaurant and sits there, eats there every day and treats it like his living room. It’s not meant to be that. But The Office kind of is. It’s such a small room and there’s one bartender and one chef. I can come down here, bring some friends down and say hi to everyone in the room and then just sit down and enjoy myself and forget what time it is. </p>
   <p><b>What has been the craziest night here?</b></p>
   <p>[Laughs] I can’t tell you that. No, no, no. I’ll tell you afterwards … What I like to watch is when we’ve got people who don’t know each other in such a small intimate environment. You’ll have like six people over there and four people over there and pretty soon all of their chairs are turned around. You’ve got people from Europe chatting with people from Cleveland. </p>
+</div>
+    
+    <!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Save Note</h4>
+      </div>
+      <div class="modal-body">
+        <p id="selection">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="save">Save</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="footer">
