@@ -32,7 +32,7 @@
     $(function(){ 
         var textSelection;
         
-        $(document).on("mouseup", function (e) {
+        $(document).on("touchend mouseup", function (e) {
             var selected = getSelection();
             var range = selected.getRangeAt(0);
             console.log(range);
