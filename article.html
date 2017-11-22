@@ -133,7 +133,7 @@
 </div>
 
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" id="notes">See Notes</button>  
+<button type="button" class="btn btn-info btn-lg" id="seenotes">See Notes</button>  
     
 <div id="text" class="container">
  
@@ -165,6 +165,7 @@
       <div class="modal-body">
         <h2>Your selection</h2>
         <p id="selection">Some text in the modal.</p>
+        <div id="notes"></div>
         <div class="form-group">
             <textarea class="form-control" placeholder="Add Note" rows="5" id="note"></textarea>
         </div>         
@@ -199,12 +200,15 @@
             var range = selected.getRangeAt(0);
 
             if(selected.toString().length > 1){
-                $("#note").show();
+                $("#note").show(); // show textbox
+                $("#save").text("Save");
+                $("#notes").hide(); // hide list of notes you've taken
                 i++; // Add +1 to "i"
                 var newNode = document.createElement("mark");
                 newNode.setAttribute('id',i); // set i as the id
                 range.surroundContents(newNode);  
-                $("#selection").text('"'+selected+'"');
+                $("#myModal h2").text("Your Selection"); // update h2 in modal
+                $("#selection").text('"'+selected+'"').show(); // update #seleciton in modal
                 $("#note").val("");
                 $("#myModal").modal('show');
                 notes[i] = ""; //set a new variable
@@ -222,14 +226,18 @@
             console.log(notes[i]);
         }
         
-        $("#notes").on("click",function(){
+        $("#seenotes").on("click",function(){
+            $("#notes").empty().show();
+            $("#save").text("Close");
             $("#myModal").modal('show');
             if (notes.length < 1){
                 $("#selection").text("No notes added.");
                 $("#note").hide();
             } else {
                 for (var property in notes) {
-                    $("#selection").text(property + ': "' + notes[property]+'"<br/>');
+                    $("#myModal h2").text("Your Notes");
+                    $("#selection").hide();
+                    $("#notes").append('<p>Note '+property + ': ' + notes[property]+'</p>');
                 }
                 $("#note").hide();
             }
